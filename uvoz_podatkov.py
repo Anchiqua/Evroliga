@@ -1,11 +1,9 @@
-import re
 import requests
-import csv
 import os
 
 
-hoteli_url = "https://www.booking.com/searchresults.sl.html?country=si;offset="
-hoteli_directory = "podatki"
+nba_url = "http://www.espn.com/nba/statistics/player/_/stat/scoring-per-game/sort/avgPoints/count/"
+nba_directory = "podatki"
 
 def shrani_text(text, directory, filename):
     os.makedirs(directory, exist_ok=True)
@@ -18,14 +16,11 @@ def shrani_text(text, directory, filename):
 
 def download_url(url):
     s=1
-    for i in range(0,2):
-        a = i*15
+    for i in range(0,8):
+        a= i*40 + 1
         datoteka  = requests.get(url + str(a))
         datoteka_text = datoteka.text
-        datoteka_ime = "hoteli{}.html".format(str(s))
-        shrani_text(datoteka_text, hoteli_directory, datoteka_ime )
+        datoteka_ime = "statistika{}.html".format(str(s))
+        shrani_text(datoteka_text, nba_directory, datoteka_ime )
         s+=1
     return None
-
-
-        

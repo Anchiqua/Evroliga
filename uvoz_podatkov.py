@@ -2,8 +2,8 @@ import requests
 import os
 
 
-nba_url = "http://www.espn.com/nba/statistics/player/_/stat/scoring-per-game/sort/avgPoints/count/"
-nba_directory = "podatki"
+euroliga_url = "http://www.euroleague.net/main/statistics?mode=Leaders&entity=Players&seasonmode=Single&seasoncode=E2016&cat=Valuation&agg=Accumulated&page="
+euroliga_directory = "podatki"
 
 def shrani_text(text, directory, filename):
     os.makedirs(directory, exist_ok=True)
@@ -16,11 +16,10 @@ def shrani_text(text, directory, filename):
 
 def download_url(url):
     s=1
-    for i in range(0,8):
-        a= i*40 + 1
-        datoteka  = requests.get(url + str(a))
+    for i in range(1,6):
+        datoteka  = requests.get(url + str(i))
         datoteka_text = datoteka.text
         datoteka_ime = "statistika{}.html".format(str(s))
-        shrani_text(datoteka_text, nba_directory, datoteka_ime )
+        shrani_text(datoteka_text, euroliga_directory, datoteka_ime )
         s+=1
     return None

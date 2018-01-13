@@ -37,7 +37,7 @@ osnovni_vzorec = re.compile(
     '<\/span><span class="visible-xs">.*\n\s+.*\n*\s*.*visible-lg-inline">'
     '(?P<Klub>.*)'
     '(visible-sm-inline">)?'
-    '(?P<Drugi_Klub>.*)?'
+    '.*?'
     '<\/span><\/a>'
     )
 
@@ -65,15 +65,15 @@ statistika_vzorec = re.compile(
         '<\/td>\n\s+<td>'
         '(?P<GS>\d+)'  #GS
         '<\/td>\n\s+<td>'
-        '(?P<Min>\d+:\d+)'  #Min
+        '(?P<Min>\d+):\d+'  #Min
         '<\/td>\n\s+<td>'
         '(?P<Tocke>\d+\.?\d*)'  #Tocke
         '<\/td>\n\s+<td>'
-        '(?P<DvaFG>\d+\.?\d*%)'  #2FG
+        '(?P<DvaFG>\d+\.?\d*)%'  #2FG
         '<\/td>\n\s+<td>'
-        '(?P<TriFG>\d*\.?\d+%)'  #3FG
+        '(?P<TriFG>\d*\.?\d+)%'  #3FG
         '<\/td>\n\s+<td>'
-        '(?P<FT>\d*\.?\d+%)'  #FT
+        '(?P<FT>\d*\.?\d+)%'  #FT
         '<\/td>'
     )
     
@@ -134,7 +134,8 @@ def merge_lists(slovar1, slovar2, key):
 
 
 seznam = merge_lists(seznam_podatkov, slovar, 'Ime')
-seznam['Ime'] = seznam['Ime'].replace(',', '')
+for i in range(0, 242):
+    seznam[i]['Ime'] = seznam[i]['Ime'].replace(',', '')
 
 def zapisi_json(podatki, ime_datoteke):
     with open(ime_datoteke, 'w') as datoteka:
@@ -148,7 +149,6 @@ imena = [
     'Letnica_rojstva',
     'Visina',
     'Klub',
-    'Drugi_klub',
     'G',
     'GS',
     'Min',
